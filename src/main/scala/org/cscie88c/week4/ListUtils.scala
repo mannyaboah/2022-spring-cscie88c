@@ -2,7 +2,7 @@ package org.cscie88c.week4
 
 object ListUtils {
   // complete the function below
-  def initDoubleList(initValue: Double)(n: Int): List[Double] = ???
+  def initDoubleList(initValue: Double)(size: Int): List[Double] = ???
 
   // complete the functions below using currying
   def ones: Int => List[Double] = ???
