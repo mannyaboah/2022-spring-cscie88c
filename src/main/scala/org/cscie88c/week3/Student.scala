@@ -12,15 +12,33 @@ final case class Student(
 
 object Student {
 
-  def validateEmail(student: Student): Boolean = ???
+  def validateEmail(student: Student): Boolean = student.email.contains('@')
 
   def averageScoreBySubject(
       subject: String,
       studentList: List[Student]
-    ): Double = ???
+    ): Double = {
+    var sum = 0
+    var count = 0
+
+    for (s <- studentList if s.subject == subject) {
+      sum += s.score
+      count += 1
+    }
+    (sum / count).toDouble
+  }
 
   def averageScoreByStudent(
       student: Student,
       studentList: List[Student]
-    ): Double = ???
+    ): Double = {
+    var sum = 0
+    var count = 0
+
+    for (s <- studentList if s.name == student.name) {
+      sum += s.score
+      count += 1
+    }
+    (sum / count).toDouble
+  }
 }
