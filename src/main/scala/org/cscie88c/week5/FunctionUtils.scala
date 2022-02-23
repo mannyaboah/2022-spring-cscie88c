@@ -21,6 +21,6 @@ object FunctionUtils {
   // Problem 3
   def flip2[A, B, C](f: (A, B) => C): (B, A) => C = ???
 
-  // Write a generic function printSample parameterized by type A, that prints the first 5 elements of a list of type A.
+  // Write a generic function sampleList parameterized by type A, that returns the first 5 elements of a list of type A.
   
 }
