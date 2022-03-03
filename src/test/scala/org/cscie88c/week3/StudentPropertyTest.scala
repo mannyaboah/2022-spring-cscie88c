@@ -23,12 +23,12 @@ class StudentPropertyTest
 
   val studentListGen: Gen[List[Student]] = Gen.listOf(studentGen)
 
-  //complete the student list generator below if attempting bonus problem
-  // test("😀 verify average score by subject < 100 for math") {
-  //   forAll(studentGen) { (sGen: List[Student]) =>
-  //     Student.averageScoreBySubject("Math", sGen) should be < 100.toDouble
-  //   }
-  // }
+  // complete the student list generator below if attempting bonus problem
+  test("😀 verify average score by subject < 100 for math") {
+    forAll(studentListGen) { (sGen: List[Student]) =>
+      Student.averageScoreBySubject("Math", sGen) < 100.0
+    }
+  }
 
   // val studentListGen: Gen[List[Student]] = ???
   test("😀 description contains name and email") {

@@ -18,27 +18,20 @@ object Student {
       subject: String,
       studentList: List[Student]
     ): Double = {
-    var sum = 0
-    var count = 0
 
-    for (s <- studentList if s.subject == subject) {
-      sum += s.score
-      count += 1
-    }
-    (sum / count).toDouble
+    val scoreList = studentList.filter(_.subject == subject).map(_.score)
+    if (scoreList.isEmpty) 0.0
+    else scoreList.reduce(_ + _) / scoreList.size.toDouble
   }
 
   def averageScoreByStudent(
       student: Student,
       studentList: List[Student]
     ): Double = {
-    var sum = 0
-    var count = 0
 
-    for (s <- studentList if s.name == student.name) {
-      sum += s.score
-      count += 1
-    }
-    (sum / count).toDouble
+    val scoreList = studentList.filter(_.name == student.name).map(_.score)
+
+    if (scoreList.isEmpty) 0.00
+    else scoreList.reduce(_ + _) / scoreList.size.toDouble
   }
 }
