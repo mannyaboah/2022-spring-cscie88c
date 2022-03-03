@@ -12,12 +12,17 @@ object FunctionUtils {
   def applyNtimesExp(n: Int)(x: Int)(f: Int => Int): Int =
     if (n == 1) f(x) else if (n <= 0) 1 else f(x) * applyNtimes(n - 1)(x)(f)
 
-  // Questionable
   def applyNtimesFold(n: Int)(x: Int)(f: Int => Int): Int =
-    List.fill(n)(x).foldLeft(0)(f(_) + f(_))
+    List.fill(n)(f(x)).foldLeft(0)(_ + _)
+
+  def applyNtimesExpFold(n: Int)(x: Int)(f: Int => Int): Int =
+    List.fill(n)(f(x)).foldLeft(1)(_ * _)
 
   def myPositivePower(x: Int, n: Int): Int =
     applyNtimesExp(n)(x)((x: Int) => x + 0)
+
+  def myPositivePowerFold(x: Int, n: Int): Int =
+    applyNtimesExpFold(n)(x)((x: Int) => x)
 
   def deferredExecutor(
       name: String
