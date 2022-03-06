@@ -35,5 +35,6 @@ class StudentPropertyTest
     forAll(studentGen) { (s: Student) =>
       assert(s.description.contains(s.email))
     }
+
   }
 }
