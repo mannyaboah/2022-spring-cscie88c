@@ -4,10 +4,12 @@ import org.cscie88c.testutils.{ StandardTest }
 
 class KafkaProducerTest extends StandardTest {
   "KafkaClient" should {
-    "send a message to the default topic" in {
+    "send a message to the default topic 😀" in {
       // add your unit tests for KafkaClient.send here
       // uncomment line below to provide the default KafkaProducer instance to call KafkaClient.sendStatusEvent
-      // import SimpleKafkaProducer._
+      import SimpleKafkaProducer._
+      val client = KafkaClient
+      assert(client.sendStatusEvent("Some Status").contains("default-topic"))
     }
   }
 }
