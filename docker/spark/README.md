@@ -6,25 +6,31 @@ This section contains instructions on using a spark standalone cluster with 1 ma
 **Scala version**: 2.13.x
 
 ## Work with the Spark shell interactively
-1. start spark cluster
+1. Start the spark cluster
 ```
 docker-compose up -d
 
 ```
 
-2. connect to master node
+2. Connect to the master node container. Exit the container at any time by typing in ```exit``` at the command line
 ```
 docker exec -it spark_spark-master_1  /bin/bash
 ```
 
-3. start interactive shell
+3. Start the interactive shell
 ```
 bin/spark-shell
 ```
 
-4. View container logs
+4. View the container logs
 ```
-docker log <container name>
+docker logs <container name>
 ```
+For more logging options see: https://docs.docker.com/engine/reference/commandline/logs/
 
+
+5. Stop spark clusters
+```
+docker-compose down
+```
 
