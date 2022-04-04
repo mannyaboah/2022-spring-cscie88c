@@ -4,6 +4,7 @@
 package org.cscie88c
 
 import org.cscie88c.config.{ ConfigUtils, CookieSettings, SimpleApp2Config }
+
 import pureconfig.generic.auto._
 import com.typesafe.scalalogging.{ LazyLogging }
 
