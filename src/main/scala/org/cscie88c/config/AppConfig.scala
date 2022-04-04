@@ -9,13 +9,18 @@ import pureconfig.ConfigSource
 import scala.reflect.ClassTag
 
 // config classes
+case class SignatureSettings(pkfile: String, keyPairId: String)
+case class SimpleApp2Config(filename: String, month: String)
 case class CookieSettings(
     domain: String,
     path: String,
     ttl: Int
   )
-case class SignatureSettings(pkfile: String, keyPairId: String)
-case class AppSettings(cookie: CookieSettings, signature: SignatureSettings)
+case class AppSettings(
+    cookie: CookieSettings,
+    signature: SignatureSettings,
+    simpleApp2: SimpleApp2Config
+  )
 
 object ConfigUtils {
 
