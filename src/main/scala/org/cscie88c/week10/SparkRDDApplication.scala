@@ -1,10 +1,10 @@
 package org.cscie88c.week10
 
+import org.apache.spark.rdd.{ RDD }
 import org.apache.spark.sql.SparkSession
-import com.typesafe.scalalogging.{ LazyLogging }
 import org.cscie88c.config.{ ConfigUtils }
 import org.cscie88c.utils.{ SparkUtils }
-import org.apache.spark.rdd.{ RDD }
+import org.cscie88c.week10.CustomerTransaction
 import pureconfig.generic.auto._
 
 // write case class below
@@ -26,14 +26,17 @@ object SparkRDDApplication {
     val spark = SparkUtils.sparkSession(
       conf.name,
       conf.masterUrl
-    ) // 2. initialize spark session
+    )
+    // 2. initialize spark session
     val rddLines = loadData(spark) // 3.load data
     val rddTransactions = lineToTransactions(
       rddLines
-    ) // 4. convert lines to transaction objects
+    )
+    // 4. convert lines to transaction objects
     val yearlyTransactionsRDD = transactionsAmountsByYear(
       rddTransactions
-    ) // 5. transform data
+    )
+    // 5. transform data
     printTransactionsAmountsByYear(yearlyTransactionsRDD) // 6. print results
     spark.stop() // 7. stop spark cluster
   }
@@ -47,13 +50,20 @@ object SparkRDDApplication {
       conf: SparkRDDConfig
     ): RDD[String] = spark.sparkContext.textFile(conf.transactionFile)
 
-  def lineToTransactions(lines: RDD[String]): RDD[CustomerTransaction] = ???
+  def lineToTransactions(lines: RDD[String]): RDD[CustomerTransaction] =
+    lines.map(CustomerTransaction(_)).collect {
+      case Some(ct) => ct
+    }
 
   def transactionsAmountsByYear(
       transactions: RDD[CustomerTransaction]
-    ): RDD[(String, Double)] = ???
+    ): RDD[(String, Double)] =
+    transactions
+      .map(ct => (ct.transactionYear, ct.transactionAmount))
+      .reduceByKey((a, b) => a + b)
 
   def printTransactionsAmountsByYear(
       transactions: RDD[(String, Double)]
-    ): Unit = ???
+    ): Unit =
+    transactions.foreach(println)
 }
