@@ -3,6 +3,8 @@ import sbt._
 object Dependencies {
   lazy val scalaTest = Seq(
     "org.scalatest" %% "scalatest" % "3.0.8" % Test,
+    // to run scalacheck code snippets in sbt console
+    "org.scalacheck" %% "scalacheck" % "1.15.4",
     // for law testing cats based typeclasses
     "org.typelevel" %% "cats-laws" % "2.0.0" % Test,
     "org.typelevel" %% "cats-testkit-scalatest" % "2.1.5" % Test,
@@ -31,6 +33,8 @@ object Dependencies {
     "org.apache.spark" %% "spark-sql" % sparkVersion, // for simple standalone spark app
     // logging
     "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-    "ch.qos.logback" % "logback-classic" % "1.2.3"
+    "ch.qos.logback" % "logback-classic" % "1.2.3",
+    // algebird
+    "com.twitter" %% "algebird-core" % "0.13.9"
   )
 }
