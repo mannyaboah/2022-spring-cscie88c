@@ -27,6 +27,7 @@ object MainApp extends LazyLogging {
   }
 
   def main(args: Array[String]): Unit = {
+
     implicit val cookie =
       ConfigUtils.loadAppConfig[CookieSettings](COOKIE_CONFIG_PATH)
 
@@ -41,3 +42,4 @@ object MainApp extends LazyLogging {
     println(message)
   }
 }
+

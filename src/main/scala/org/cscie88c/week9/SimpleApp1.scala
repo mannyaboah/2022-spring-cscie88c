@@ -28,5 +28,4 @@ object SimpleApp1 extends LazyLogging {
 
   def main(args: Array[String]): Unit =
     println(janLength(args(0)))
-
 }
