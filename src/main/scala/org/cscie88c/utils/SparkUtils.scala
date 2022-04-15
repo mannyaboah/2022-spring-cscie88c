@@ -8,6 +8,7 @@ object SparkUtils {
       appName: String = "spark-app",
       masterURL: String = "local[*]"
     ): SparkSession = {
+
     lazy val spark = SparkSession
       .builder()
       .appName(appName)

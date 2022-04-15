@@ -49,5 +49,4 @@ object SparkSQLApplication {
 
   def printTransactionTotalsByCategory(df: DataFrame): Unit =
     df.show()
-
 }
