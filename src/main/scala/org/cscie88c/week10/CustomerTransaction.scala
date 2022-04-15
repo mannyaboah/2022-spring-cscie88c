@@ -5,7 +5,7 @@ import scala.util.{ Try }
 final case class RawTransaction(
     customer_id: String,
     trans_date: String,
-    tran_amount: Double
+    trans_amount: Double
   )
 
 final case class CustomerTransaction(
@@ -34,6 +34,6 @@ object CustomerTransaction {
     CustomerTransaction(
       customerId = raw.customer_id,
       transactionDate = raw.trans_date,
-      transactionAmount = raw.tran_amount
+      transactionAmount = raw.trans_amount
     )
 }
