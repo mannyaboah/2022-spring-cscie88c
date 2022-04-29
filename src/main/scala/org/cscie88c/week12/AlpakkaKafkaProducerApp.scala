@@ -18,16 +18,19 @@ object AlpakkaKafkaProducerApp extends LazyLogging{
   val MyTopic = "orders"
   val KafkaConfPath = "com.example.akka.kafka.producer"
 
+  // main entry point
   def main(args: Array[String]): Unit = {
     logger.info("[XXXX]: Start of AlpakkaApp")
+    // read configuration and define serializers and deserializers
     val appSettings: ProducerSettings[String, String] = producerSettings(
       KafkaConfPath
     )
     logger.info(s"[settings]: $appSettings")
-    runPipeline(appSettings)
+    runPipeline(appSettings) // run the data processing pipeline
     logger.info("[XXXX]: Stopped AlpakkaApp")
   }
 
+  // run the pipeline on the default actor system
   def runPipeline(settings: ProducerSettings[String, String]): Unit = {
     import AkkaStreamUtils.defaultActorSystem._
 
@@ -44,15 +47,16 @@ object AlpakkaKafkaProducerApp extends LazyLogging{
     }
   }
 
+  // kafka data processing pipeline
   def producerPipeline(
       settings: ProducerSettings[String, String],
       topic: String
     ): RunnableGraph[Future[Done]] = {
     val kafkProducerPipeline: RunnableGraph[Future[Done]] =
-      transactionsSource
-        .map(_.toString)
-        .via(producerRecordFlow(topic))
-        .toMat(Producer.plainSink(settings))(Keep.right)
+      transactionsSource // create the source
+        .map(_.toString) // transform to string
+        .via(producerRecordFlow(topic)) // transform to producer record
+        .toMat(Producer.plainSink(settings))(Keep.right) // connect to the sink created from factory method
     kafkProducerPipeline
   }
 

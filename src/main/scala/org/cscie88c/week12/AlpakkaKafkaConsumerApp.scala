@@ -1,18 +1,10 @@
 package org.cscie88c.week12
 
-// import akka.stream._
 import akka.stream.scaladsl._
 import akka.{ Done }
-// import akka.util.ByteString
-// import akka.actor.ActorSystem
 import scala.concurrent._
-// import scala.concurrent.duration._
 import org.cscie88c.utils.AkkaStreamUtils
-// import cats.implicits._
 import akka.kafka.{ ConsumerSettings }
-// import org.apache.kafka.common.serialization.{ StringDeserializer }
-// import akka.kafka.scaladsl._
-// import scala.util.Random
 import com.typesafe.scalalogging.{ LazyLogging }
 import scala.util.{ Failure, Success }
 import KafkaConsumerStages._
@@ -25,16 +17,19 @@ object AlpakkaKafkaConsumerApp extends LazyLogging {
   val MyTopic = "orders"
   val KafkaConfPath = "com.example.akka.kafka.consumer"
 
+  // main entry point
   def main(args: Array[String]): Unit = {
     logger.info("[XXXX]: Start of AlpakkaApp")
+    // read configuration and define serializers and deserializers
     val appSettings: ConsumerSettings[String, String] = consumerSettings(
       KafkaConfPath
     )
     logger.info(s"[settings]: $appSettings")
-    runPipeline(appSettings)
+    runPipeline(appSettings) // run the data processing pipeline
     logger.info("[XXXX]: Stopped AlpakkaApp")
   }
 
+  // run the pipeline on the default actor system
   def runPipeline(settings: ConsumerSettings[String, String]): Unit = {
     import AkkaStreamUtils.defaultActorSystem._
 
@@ -51,12 +46,13 @@ object AlpakkaKafkaConsumerApp extends LazyLogging {
     }
   }
 
+  // kafka data processing pipeline
   def consumerPipeline(settings: ConsumerSettings[String, String], topic: String): RunnableGraph[Future[Done]] = {
-    kafkaSource(settings, topic)
-      .via(recordToStringFlow)
-      .via(customerTransactionFlow)
-      .via(averageTransactionFlow)
-      .toMat(printSink)(Keep.right)
+    kafkaSource(settings, topic) // create the source using factory method
+      .via(recordToStringFlow) // transform ConsumerRecord to string
+      .via(customerTransactionFlow) // transform to transaction data type
+      .via(averageTransactionFlow) // average aggregate
+      .toMat(printSink)(Keep.right) // connect to the sink
   }
 
 }
