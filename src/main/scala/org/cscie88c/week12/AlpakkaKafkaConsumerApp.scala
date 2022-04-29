@@ -15,7 +15,7 @@ object AlpakkaKafkaConsumerApp extends LazyLogging {
   import AkkaStreamUtils.defaultActorSystem._
 
   val MyTopic = "orders"
-  val KafkaConfPath = "com.example.akka.kafka.consumer"
+  val KafkaConfPath = "org.cscie88c.akka.kafka.consumer"
 
   // main entry point
   def main(args: Array[String]): Unit = {
